@@ -25,6 +25,54 @@ Orange onboarding/login packages for Android user 0.
   never enabled/authorized, this method cannot bootstrap itself. There is currently
   no verified KSTB7259 recovery/bootloader route for that situation.
 
+## If the Orange login wall blocks Settings
+
+Do this **before** the normal procedure. Do not press RESET or factory-reset the
+box.
+
+### A. Test whether ADB is already listening
+
+ADB normally has to be enabled first, but some operator builds already listen on
+the network. You can test this without opening any menu:
+
+1. Find the decoder's IP in your router's **connected devices / DHCP client list**
+   (look for Orange, Kaon, KSTB7259, or an unknown wired device).
+2. On a computer connected to the same router, install Android Platform-Tools and
+   run, replacing the example IP:
+
+   ```sh
+   adb connect 192.168.1.123:5555
+   adb devices
+   ```
+
+3. If the result is `device`, proceed directly to `scan`; no Settings visit is
+   needed. If it is `unauthorized`, an authorization dialog still has to be
+   accepted on the TV. If it is `connection refused`, ADB is not listening on that
+   endpoint. For a timeout, first verify that you selected the correct wired device
+   and that the router is not isolating clients.
+
+### B. Try Android Settings from the network-error screen (unverified on this model)
+
+Some older Orange Android TV boxes allowed Google Assistant to open Android
+Settings from the initial network-error screen. This does not bypass Orange
+content; it is only a possible way to reach ADB settings.
+
+1. Power the decoder off normally, disconnect Ethernet, and power it back on. Do
+   **not** hold RESET.
+2. Wait for a **no Internet connection** screen. Do not acknowledge/retry it.
+3. Reconnect Ethernet while leaving that screen open.
+4. Press the remote's **Google Assistant/microphone** button and say **“Abrir
+   ajustes”**, **“Abrir configuración”**, or **“Open Android settings.”** Also try
+   the remote's gear/Settings button if it has one.
+5. Voice requires the remote's Bluetooth pairing and may require a Google account;
+   it can legitimately fail on this model. If Android Settings opens, enable ADB
+   and continue with the normal procedure.
+
+If neither route works, there is currently no verified Ethernet-only way to enable
+ADB or install a launcher from the Orange wall. Stock recovery normally accepts
+only properly signed updates; an unsigned launcher/ZIP is not a valid recovery
+image. Do not experiment with random reset-button combinations or generic firmware.
+
 ## 1. Before changing anything
 
 **No USB connection is needed.** HDMI is only the display, DC powers the decoder,
