@@ -1,0 +1,24 @@
+# Local inspection output can contain device/build details.
+reports/
+
+# Never commit firmware, partition dumps, APKs, or account backups.
+firmware/
+images/
+backups/
+downloads/
+*.apk
+*.apks
+*.img
+*.img.xz
+*.img.gz
+*.ota.zip
+
+# Python tooling
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editor/OS metadata
+.DS_Store
+Thumbs.db
